@@ -3,8 +3,8 @@
 This repository contains my LeetCode solutions in C++.
 
 ## Progress
-- Total Solved: 17
-- Easy: 15
+- Total Solved: 18
+- Easy: 16
 - Medium: 2
 - Hard: 0
 
