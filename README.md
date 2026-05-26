@@ -12,3 +12,5 @@ This repository contains my LeetCode solutions in C++.
 - Arrays
 - Hash Table
 - Math
+- Linked List
+- String
