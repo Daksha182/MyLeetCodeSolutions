@@ -3,9 +3,9 @@
 This repository contains my LeetCode solutions in C++.
 
 ## Progress
-- Total Solved: 28
+- Total Solved: 29
 - Easy: 24
-- Medium: 4
+- Medium: 5
 - Hard: 0
 
 ## Topics Covered
