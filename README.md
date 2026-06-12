@@ -14,3 +14,4 @@ This repository contains my LeetCode solutions in C++.
 - Math
 - Linked List
 - String
+- Stack
