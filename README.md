@@ -3,8 +3,8 @@
 This repository contains my LeetCode solutions in C++.
 
 ## Progress
-- Total Solved: 40
-- Easy: 28
+- Total Solved: 41
+- Easy: 29
 - Medium: 12
 - Hard: 0
 
@@ -15,3 +15,4 @@ This repository contains my LeetCode solutions in C++.
 - Linked List
 - String
 - Stack
+- Tree
