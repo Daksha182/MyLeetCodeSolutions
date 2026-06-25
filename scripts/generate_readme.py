@@ -8,6 +8,9 @@ easy = stats["easy"]
 medium = stats["medium"]
 hard = stats["hard"]
 total = stats["total"]
+streak = stats["streak"]
+max_streak = stats["max_streak"]
+last_solved = stats["last_solved"]
 
 leetcode_totals = {
     "easy": 951,
@@ -104,6 +107,15 @@ template = """
 </tr>
 </table>
 </div>
+
+## 🔥 Streak Stats
+
+**Current Streak:** 🔥 {streak} days  
+**Max Streak:** 🏆 {max_streak} days
+
+## 🕒 Recent Solution
+
+**{last_solved}**
 """
 
 readme = template.format(
