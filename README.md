@@ -46,8 +46,9 @@ src="https://quickchart.io/chart?c={
 type:'pie',
 data:{
 labels:['Easy','Medium','Hard'],
-datasets:[{data:[32,16,0],
-backgroundColor:['#2ecc71','#f1c40f','#e74c3c']}]
+datasets:[{
+data:[32,16,0],
+backgroundColor:['#2ecc71','#f1c40f','#e74c3c']
+}]
 }
 }" />
-
