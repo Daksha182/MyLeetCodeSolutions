@@ -1,6 +1,7 @@
 import json
 import urllib.parse
 import subprocess
+import re
 
 with open("stats.json", "r") as f:
     stats = json.load(f)
@@ -42,19 +43,14 @@ def get_last_problems(n=200):
     result = subprocess.check_output(
         ["git", "log", "-n", str(n), "--pretty=format:%s"]
     ).decode("utf-8")
-    commits = result.split("\n")
     problems = []
-    for c in commits:
-        if "Question-" not in c:
-            continue
-        if "update stat.json" in c.lower():
-            continue
-        parts = c.split("Question-")
-        if len(parts) > 1:
-            after = parts[1]
-            name = " ".join(after.split(" ")[1:]).strip()
-            if name:
-                problems.append(name)
+    pattern = re.compile(
+        r"Day-\d+\s+Question-\d+\s+(.+)$"
+    )
+    for commit in result.splitlines():
+        m = pattern.match(commit.strip())
+        if m:
+            problems.append(m.group(1).strip())
     return problems[:5]
 
 recent_problems = get_last_problems()
