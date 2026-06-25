@@ -21,7 +21,9 @@ progress = {
     "hard": round((hard / leetcode_totals["hard"]) * 100, 2),
 }
 
-# PIE CHART
+# -------------------------
+# PIE CHART (KEEP THIS)
+# -------------------------
 chart = {
     "type": "pie",
     "data": {
@@ -35,22 +37,24 @@ chart = {
 
 chart_url = "https://quickchart.io/chart?c=" + urllib.parse.quote(json.dumps(chart))
 
-# BAR CHART (single combined)
-bar_chart = {
-    "type": "bar",
-    "data": {
-        "labels": ["Easy", "Medium", "Hard"],
-        "datasets": [{
-            "label": "LeetCode Progress %",
-            "data": [progress["easy"], progress["medium"], progress["hard"]],
-            "backgroundColor": ["#2ecc71", "#f1c40f", "#e74c3c"]
-        }]
-    }
-}
 
-bar_url = "https://quickchart.io/chart?c=" + urllib.parse.quote(json.dumps(bar_chart))
+# -------------------------
+# TEXT PROGRESS BARS (NEW)
+# -------------------------
+def make_bar(percent, length=20):
+    filled = int((percent / 100) * length)
+    empty = length - filled
+    return "█" * filled + "░" * empty
 
-# README
+
+easy_bar = make_bar(progress["easy"])
+medium_bar = make_bar(progress["medium"])
+hard_bar = make_bar(progress["hard"])
+
+
+# -------------------------
+# README TEMPLATE
+# -------------------------
 template = """
 <h1 align="center">🚀 LeetCode Dashboard</h1>
 
@@ -105,11 +109,18 @@ template = """
 
 </td>
 
-<td width="50%" align="center" valign="top">
+<td width="50%" align="left" valign="top">
 
-### 📊 LeetCode Coverage %
+### 📊 LeetCode Coverage
 
-<img width="400" src="{bar_url}" />
+**🟢 Easy — {easy}/{easy_total} ({easy_pct}%)**  
+<pre>{easy_bar}</pre>
+
+**🟡 Medium — {medium}/{medium_total} ({medium_pct}%)**  
+<pre>{medium_bar}</pre>
+
+**🔴 Hard — {hard}/{hard_total} ({hard_pct}%)**  
+<pre>{hard_bar}</pre>
 
 </td>
 
@@ -123,7 +134,18 @@ readme = template.format(
     medium=medium,
     hard=hard,
     chart_url=chart_url,
-    bar_url=bar_url
+
+    easy_bar=easy_bar,
+    medium_bar=medium_bar,
+    hard_bar=hard_bar,
+
+    easy_total=leetcode_totals["easy"],
+    medium_total=leetcode_totals["medium"],
+    hard_total=leetcode_totals["hard"],
+
+    easy_pct=progress["easy"],
+    medium_pct=progress["medium"],
+    hard_pct=progress["hard"]
 )
 
 with open("README.md", "w") as f:
