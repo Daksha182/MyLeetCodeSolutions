@@ -1,15 +1,9 @@
 import json
 
-# load stats
 with open("stats.json", "r") as f:
     stats = json.load(f)
 
-easy = stats["easy"]
-medium = stats["medium"]
-hard = stats["hard"]
-total = stats["total"]
-
-readme = f"""
+template = """
 <h1 align="center">🚀 LeetCode Dashboard</h1>
 
 <p align="center">
@@ -57,14 +51,22 @@ src="https://quickchart.io/chart?c={{
 type:'pie',
 data:{{
 labels:['Easy','Medium','Hard'],
-datasets:[{{data:[{easy},{medium},{hard}],
-backgroundColor:['#2ecc71','#f1c40f','#e74c3c']}}]
+datasets:[{{
+data:[{easy},{medium},{hard}],
+backgroundColor:['#2ecc71','#f1c40f','#e74c3c']
+}}]
 }}
 }}" />
-
 """
+
+readme = template.format(
+    total=stats["total"],
+    easy=stats["easy"],
+    medium=stats["medium"],
+    hard=stats["hard"]
+)
 
 with open("README.md", "w") as f:
     f.write(readme)
 
-print("README generated successfully!")
+print("README updated")
