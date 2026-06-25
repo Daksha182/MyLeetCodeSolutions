@@ -76,4 +76,8 @@
 
 ## 🕒 Last 5 Problems
 
-
+- ReverseInteger
+- ZigzagConversion
+- LongestPalindromicSubstring
+- MaximumNumberofBalloons
+- MaximumIceCreamBars
