@@ -1,5 +1,6 @@
 import json
 import urllib.parse
+import subprocess
 
 with open("stats.json", "r") as f:
     stats = json.load(f)
@@ -8,9 +9,9 @@ easy = stats["easy"]
 medium = stats["medium"]
 hard = stats["hard"]
 total = stats["total"]
+
 streak = stats["streak"]
 max_streak = stats["max_streak"]
-last_solved = stats["last_solved"]
 
 leetcode_totals = {
     "easy": 951,
@@ -36,6 +37,29 @@ chart = {
 }
 
 chart_url = "https://quickchart.io/chart?c=" + urllib.parse.quote(json.dumps(chart))
+
+def get_last_problems(n=5):
+    result = subprocess.check_output(
+        ["git", "log", "-n", str(n), "--pretty=format:%s"]
+    ).decode("utf-8")
+
+    commits = result.split("\n")
+
+    problems = []
+
+    for c in commits:
+        if "Question-" in c:
+            parts = c.split("Question-")
+            if len(parts) > 1:
+                problem = parts[1]
+                name = " ".join(problem.split(" ")[1:]).strip()
+                if name:
+                    problems.append(name)
+
+    return problems
+
+recent_problems = get_last_problems()
+recent_block = "\n".join([f"- {p}" for p in recent_problems])
 
 template = """
 <h1 align="center">🚀 LeetCode Dashboard</h1>
@@ -80,7 +104,7 @@ template = """
 
 ## 📈 Analytics
 
-<div align= "center">
+<div align="center">
 <table>
 <tr>
 
@@ -92,7 +116,7 @@ template = """
 
 </td>
 
-<td width="50%" align="left" valign="top">
+<td width="50%" align="center" valign="top">
 
 ### 📊 LeetCode Coverage
 
@@ -100,7 +124,7 @@ template = """
 
 **🟡 Medium — {medium}/{medium_total} ({medium_pct}%)**  
 
-**🔴 Hard — {hard}/{hard_total} ({hard_pct}%)**  
+**🔴 Hard — {hard}/{hard_total} ({hard_pct}%)**
 
 </td>
 
@@ -111,11 +135,11 @@ template = """
 ## 🔥 Streak Stats
 
 **Current Streak:** 🔥 {streak} days  
-**Max Streak:** 🏆 {max_streak} days
+**Max Streak:** 🏆 {max_streak} days  
 
-## 🕒 Recent Solution
+## 🕒 Last 5 Problems
 
-**{last_solved}**
+{recent}
 """
 
 readme = template.format(
@@ -125,7 +149,6 @@ readme = template.format(
     hard=hard,
     streak=streak,
     max_streak=max_streak,
-    last_solved=last_solved,
     chart_url=chart_url,
 
     easy_total=leetcode_totals["easy"],
@@ -134,8 +157,11 @@ readme = template.format(
 
     easy_pct=progress["easy"],
     medium_pct=progress["medium"],
-    hard_pct=progress["hard"]
+    hard_pct=progress["hard"],
+
+    recent=recent_block
 )
+
 with open("README.md", "w") as f:
     f.write(readme)
 
