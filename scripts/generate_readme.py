@@ -1,8 +1,31 @@
 import json
+import urllib.parse
 
 with open("stats.json", "r") as f:
     stats = json.load(f)
 
+easy = stats["easy"]
+medium = stats["medium"]
+hard = stats["hard"]
+total = stats["total"]
+
+chart = {
+    "type": "pie",
+    "data": {
+        "labels": ["Easy", "Medium", "Hard"],
+        "datasets": [{
+            "data": [easy, medium, hard],
+            "backgroundColor": ["#2ecc71", "#f1c40f", "#e74c3c"]
+        }]
+    }
+}
+
+chart_url = (
+    "https://quickchart.io/chart?c=" +
+    urllib.parse.quote(json.dumps(chart))
+)
+
+# README template
 template = """
 <h1 align="center">🚀 LeetCode Dashboard</h1>
 
@@ -46,27 +69,18 @@ template = """
 
 ## 📈 Solved Distribution
 
-<img width="300"
-src="https://quickchart.io/chart?c={{
-type:'pie',
-data:{{
-labels:['Easy','Medium','Hard'],
-datasets:[{{
-data:[{easy},{medium},{hard}],
-backgroundColor:['#2ecc71','#f1c40f','#e74c3c']
-}}]
-}}
-}}" />
+<img width="300" src="{chart_url}" />
 """
 
 readme = template.format(
-    total=stats["total"],
-    easy=stats["easy"],
-    medium=stats["medium"],
-    hard=stats["hard"]
+    total=total,
+    easy=easy,
+    medium=medium,
+    hard=hard,
+    chart_url=chart_url
 )
 
 with open("README.md", "w") as f:
     f.write(readme)
 
-print("README updated")
+print("README updated successfully")
