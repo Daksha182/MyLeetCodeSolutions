@@ -21,9 +21,6 @@ progress = {
     "hard": round((hard / leetcode_totals["hard"]) * 100, 2),
 }
 
-# -------------------------
-# PIE CHART (KEEP THIS)
-# -------------------------
 chart = {
     "type": "pie",
     "data": {
@@ -37,24 +34,6 @@ chart = {
 
 chart_url = "https://quickchart.io/chart?c=" + urllib.parse.quote(json.dumps(chart))
 
-
-# -------------------------
-# TEXT PROGRESS BARS (NEW)
-# -------------------------
-def make_bar(percent, length=20):
-    filled = int((percent / 100) * length)
-    empty = length - filled
-    return "█" * filled + "░" * empty
-
-
-easy_bar = make_bar(progress["easy"])
-medium_bar = make_bar(progress["medium"])
-hard_bar = make_bar(progress["hard"])
-
-
-# -------------------------
-# README TEMPLATE
-# -------------------------
 template = """
 <h1 align="center">🚀 LeetCode Dashboard</h1>
 
@@ -114,13 +93,10 @@ template = """
 ### 📊 LeetCode Coverage
 
 **🟢 Easy — {easy}/{easy_total} ({easy_pct}%)**  
-<pre>{easy_bar}</pre>
 
 **🟡 Medium — {medium}/{medium_total} ({medium_pct}%)**  
-<pre>{medium_bar}</pre>
 
 **🔴 Hard — {hard}/{hard_total} ({hard_pct}%)**  
-<pre>{hard_bar}</pre>
 
 </td>
 
