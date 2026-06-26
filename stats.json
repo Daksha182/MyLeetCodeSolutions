@@ -1,9 +1,8 @@
 {
-  "total": 49,
+  "total": 50,
   "easy": 32,
   "medium": 17,
-  "hard": 0,
-  "streak": 41,
-  "max_streak": 41,
-  "last_solved": "ZigZag Conversion"
+  "hard": 1,
+  "streak": 43,
+  "max_streak": 43,
 }
