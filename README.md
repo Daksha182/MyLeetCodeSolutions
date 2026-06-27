@@ -74,8 +74,8 @@
 
 ## 🕒 Last 5 Problems
 
+- String to Integer (atoi)
 - Median of Two Sorted Arrays
 - ReverseInteger
 - ZigzagConversion
 - LongestPalindromicSubstring
-- MaximumNumberofBalloons
