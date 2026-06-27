@@ -105,8 +105,6 @@ template = """
 
 <td width="50%" align="center" valign="top">
 
-### 📈 Solved Distribution
-
 <img width="300" src="{chart_url}" />
 
 </td>
