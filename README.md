@@ -74,8 +74,8 @@
 
 ## 🕒 Last 5 Problems
 
+- Maximum Element After Decreasing and Rearranging
 - String to Integer (atoi)
 - Median of Two Sorted Arrays
 - ReverseInteger
 - ZigzagConversion
-- LongestPalindromicSubstring
